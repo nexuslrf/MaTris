@@ -5,36 +5,49 @@ X, O = 'X', None
 Tetromino = namedtuple("Tetrimino", "color shape")
 
 tetrominoes = {
-    "long": Tetromino(color="blue",
+    "I": Tetromino(color="blue",
                       shape=((O,O,O,O),
                              (X,X,X,X),
                              (O,O,O,O),
                              (O,O,O,O))),
-    "square": Tetromino(color="yellow",
+    "O": Tetromino(color="yellow",
                         shape=((X,X),
                                (X,X))),
-    "hat": Tetromino(color="pink",
+    "T": Tetromino(color="pink",
                      shape=((O,X,O),
                             (X,X,X),
                             (O,O,O))),
-    "right_snake": Tetromino(color="green",
+    "S": Tetromino(color="green",
                              shape=((O,X,X),
                                     (X,X,O),
                                     (O,O,O))),
-    "left_snake": Tetromino(color="red",
+    "Z": Tetromino(color="red",
                             shape=((X,X,O),
                                    (O,X,X),
                                    (O,O,O))),
-    "left_gun": Tetromino(color="cyan",
+    "J": Tetromino(color="cyan",
                           shape=((X,O,O),
                                  (X,X,X),
                                  (O,O,O))),
-    "right_gun": Tetromino(color="orange",
+    "L": Tetromino(color="orange",
                            shape=((O,O,X),
                                   (X,X,X),
                                   (O,O,O)))
 }
-list_of_tetrominoes = list(tetrominoes.values())
+list_of_tetrominoes = list(tetrominoes.keys())
+list_of_start_tetrominoes = ["I", "T", "J", "L"]
+
+color_map = {
+    "blue": 1,
+    "yellow": 2,
+    "pink": 3,
+    "green": 4,
+    "red": 5,
+    "cyan": 6,
+    "orange": 7,
+    "grey": 8,
+}
+colors = ["none","blue","yellow","pink","green","red","cyan","orange","grey"]
 
 def rotate(shape, times=1):
     """ Rotate a shape to the right """
