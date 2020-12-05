@@ -1,3 +1,25 @@
+This is modified Tetris pygame with part of modern tetris features like hold, T-Spin.
+
+![](t_spin-demo.gif)
+
+We also provide some gym-like interfaces for doing some Reinforcement learning experiments
+
+```python
+env = MatrisEnv()
+for i in range(1000):
+    reward, done, state, info = env.step(ACTIONS[np.random.randint(0, len(ACTIONS))])
+    print(f"Reward: {reward}")
+    if not done:
+        env.render()
+    else:
+        env.reset()  
+print("Game over!") 
+```
+
+*The original readme.md are shown below.*
+
+----
+
 MaTris
 ======
 

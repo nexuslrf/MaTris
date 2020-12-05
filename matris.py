@@ -81,7 +81,7 @@ class Matris(object):
         # Use 7-Packed random piece
         next_shape = random.choice(list_of_start_tetrominoes)
         self.next_tetromino = tetrominoes[next_shape]
-        # self.next_tetromino = list_of_tetrominoes[2]
+        # self.next_tetromino = tetrominoes[list_of_tetrominoes[2]]
         self.next_tetromino_bag = list(np.random.permutation(list_of_tetrominoes))
         repeat_idx = self.next_tetromino_bag.index(next_shape)
         self.next_tetromino_bag = [next_shape] + self.next_tetromino_bag
@@ -131,7 +131,7 @@ class Matris(object):
         self.next_tetromino_idx = (self.next_tetromino_idx + 1) % 7
         if self.next_tetromino_idx == 0:
             self.next_tetromino_bag = list(np.random.permutation(list_of_tetrominoes))
-        # self.next_tetromino = list_of_tetrominoes[2]
+        # self.next_tetromino = tetrominoes[list_of_tetrominoes[2]]
         self.locked = False
         self.t_spin = 0
         self.recently_swapped = False
