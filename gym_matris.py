@@ -21,8 +21,11 @@ class MatrisEnv(gym.Env):
 
         self.action_list = ACTIONS
         self.action_space = spaces.Discrete(len(ACTIONS))
-
-        # self.timepassed = 20
+        self.observation_space = spaces.Dict({"board": spaces.Box(low=0, high=1, shape=(3,20,10), dtype=np.int), 
+                                              "current": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),  
+                                              "next": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
+                                              "hold": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
+                                            }) 
 
     def step(self, action_id):
         timepassed = self.game.clock.tick(50)
@@ -35,6 +38,7 @@ class MatrisEnv(gym.Env):
 
     def reset(self):
         self.game.gym_init(self.screen)
+        return self.game.matris.get_state()
 
     def render(self, mode='human', close=False):
         if close:
