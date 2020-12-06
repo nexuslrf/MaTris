@@ -41,6 +41,10 @@ class MatrisEnv(gym.Env):
         return self.game.matris.get_state()
 
     def render(self, mode='human', close=False):
+        try:
+            pygame.event.get()
+        except:
+            pass
         if close:
             self.game.matris.gameover()
             return
