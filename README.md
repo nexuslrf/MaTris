@@ -7,7 +7,7 @@ We also provide some gym-like interfaces for doing some Reinforcement learning e
 ```python
 env = MatrisEnv()
 for i in range(1000):
-    reward, done, state, info = env.step(ACTIONS[np.random.randint(0, len(ACTIONS))])
+    reward, done, state, info = env.step(env.action_space.sample())
     print(f"Reward: {reward}")
     if not done:
         env.render()

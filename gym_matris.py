@@ -18,12 +18,16 @@ class MatrisEnv(gym.Env):
             self.screen = None
         self.game = Game()
         self.game.gym_init(self.screen)
+
+        self.action_list = ACTIONS
+        self.action_space = spaces.Discrete(len(ACTIONS))
+
         # self.timepassed = 20
 
-    def step(self, action):
+    def step(self, action_id):
         timepassed = self.game.clock.tick(50)
         # timepassed = 20
-        reward = self.game.matris.step_update(action, 20/1000)
+        reward = self.game.matris.step_update(self.action_list[action_id], timepassed/1000)
         done = self.game.matris.done
         state = self.game.matris.get_state()
         info = None
@@ -33,19 +37,16 @@ class MatrisEnv(gym.Env):
         self.game.gym_init(self.screen)
 
     def render(self, mode='human', close=False):
+        if close:
+            self.game.matris.gameover()
+            return
         if self.game.matris.needs_redraw and self.screen:
             self.game.redraw()
 
 if __name__ == "__main__":
-    # pygame.init()
-
-    # screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    # pygame.display.set_caption("MaTris")
-    # Menu().main(screen)
-    # Game().main(screen) 
-    env = MatrisEnv()
+    env = MatrisEnv(no_display=False)
     for i in range(1000):
-        reward, done, state, info = env.step(ACTIONS[np.random.randint(0, len(ACTIONS))])
+        reward, done, state, info = env.step(env.action_space.sample())
         print(f"Reward: {reward}")
         if not done:
             env.render()
