@@ -95,6 +95,7 @@ class Matris(object):
         self.difficult_clear = False
         self.done = False
         self.locked = False
+        self.needs_redraw = True
 
         self.set_tetrominoes()
         self.tetromino_rotation = 0

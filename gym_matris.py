@@ -17,7 +17,7 @@ import numpy as np
 class MatrisEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
-    def __init__(self, no_display=True):
+    def __init__(self, no_display=True, real_tick=False):
         if not no_display:
             pygame.init()
             pygame.display.set_caption("MaTris")
@@ -28,9 +28,10 @@ class MatrisEnv(gym.Env):
         self.game = Game()
         self.game.gym_init(self.screen)
 
+        self.real_tick = real_tick
         self.action_list = ACTIONS
         self.action_space = spaces.Discrete(len(ACTIONS))
-        self.observation_space = spaces.Box(low=0, high=3, shape=(1,20,10))
+        self.observation_space = spaces.Box(low=0, high=3, shape=(1,20,10), dtype=np.int)
         # self.observation_space = spaces.Dict({"board": spaces.Box(low=0, high=1, shape=(3,20,10), dtype=np.int), 
         #                                       "current": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),  
         #                                       "next": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
@@ -38,13 +39,12 @@ class MatrisEnv(gym.Env):
         #                                     }) 
 
     def step(self, action_id):
-        timepassed = self.game.clock.tick(50)
-        # timepassed = 20
+        timepassed = self.game.clock.tick(50) if self.real_tick else 20
         reward = self.game.matris.step_update(self.action_list[action_id], timepassed/1000)
         done = self.game.matris.done
         state = self.game.matris.get_state()
         info = None
-        return reward, done, state, info
+        return state, reward, done, info
 
     def reset(self):
         self.game.gym_init(self.screen)
@@ -58,13 +58,13 @@ class MatrisEnv(gym.Env):
         if close:
             self.game.matris.gameover()
             return
-        if self.game.matris.needs_redraw and self.screen:
+        if self.screen and self.game.matris.needs_redraw:
             self.game.redraw()
 
 if __name__ == "__main__":
     env = MatrisEnv(no_display=False)
     for i in range(1000):
-        reward, done, state, info = env.step(env.action_space.sample())
+        state, reward, done, info = env.step(env.action_space.sample())
         print(f"Reward: {reward}")
         if not done:
             env.render()
