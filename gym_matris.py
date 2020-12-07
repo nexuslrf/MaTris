@@ -1,9 +1,18 @@
-from matris import *
-from actions import ACTIONS
-import numpy as np
+import os
+import sys
 import gym
 from gym import error, spaces, utils
 from gym.utils import seeding
+
+this_dir = os.path.dirname(__file__)
+# Add lib to PYTHONPATH
+lib_path = os.path.join(this_dir)
+if lib_path not in sys.path:
+    sys.path.insert(0, lib_path)
+
+from matris import *
+from actions import ACTIONS
+import numpy as np
 
 class MatrisEnv(gym.Env):
     metadata = {'render.modes': ['human']}

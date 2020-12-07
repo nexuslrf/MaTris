@@ -19,8 +19,7 @@ item2tuple = lambda x: [(i,) for i in x]
 
 ACTIONS = item2tuple(MOVEMENT_DIR + ROTATION_DIR + DROP_METHOD) + \
     [combo for combo in itertools.product(MOVEMENT_DIR, ROTATION_DIR)] + \
-    [combo for combo in itertools.product(MOVEMENT_DIR, ROTATION_DIR, DROP_METHOD)] + \
-    [("no op",), ("hold",)]
+    [("no op",),] # ("hold",)]
 
 # ACTIONS = item2tuple(MOVEMENT_DIR)
 # print(ACTIONS)

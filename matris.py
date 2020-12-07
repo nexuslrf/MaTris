@@ -684,6 +684,7 @@ class Matris(object):
             'next': self.color_map[self.next_tetromino[0]] - 1,
             'hold': self.color_map[self.held_tetromino[0]] - 1 if self.held_tetromino else 7,
         }
+        return state_info
 
 
 class Game(object):
