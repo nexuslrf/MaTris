@@ -30,11 +30,12 @@ class MatrisEnv(gym.Env):
 
         self.action_list = ACTIONS
         self.action_space = spaces.Discrete(len(ACTIONS))
-        self.observation_space = spaces.Dict({"board": spaces.Box(low=0, high=1, shape=(3,20,10), dtype=np.int), 
-                                              "current": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),  
-                                              "next": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
-                                              "hold": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
-                                            }) 
+        self.observation_space = spaces.Box(low=0, high=3, shape=(1,20,10))
+        # self.observation_space = spaces.Dict({"board": spaces.Box(low=0, high=1, shape=(3,20,10), dtype=np.int), 
+        #                                       "current": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),  
+        #                                       "next": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
+        #                                       "hold": spaces.Box(low=0, high=7, shape=(1,), dtype=np.int),
+        #                                     }) 
 
     def step(self, action_id):
         timepassed = self.game.clock.tick(50)

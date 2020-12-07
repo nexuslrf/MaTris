@@ -678,12 +678,18 @@ class Matris(object):
         return None
 
     def get_state(self):
-        state_info = {
-            'board': self.matrix[:,2:,:],
-            'current': self.color_map[self.current_tetromino[0]] - 1,
-            'next': self.color_map[self.next_tetromino[0]] - 1,
-            'hold': self.color_map[self.held_tetromino[0]] - 1 if self.held_tetromino else 7,
-        }
+        board = self.matrix[:,2:,:].copy()
+        board[board>0] = 1
+        # combine 3 channels into one
+        state_info = (board[0] + board[1] * 2 + board[2] * 3)[np.newaxis,:,:]
+
+        # state_info = {
+        #     'board': board,
+        #     'current': self.color_map[self.current_tetromino[0]] - 1,
+        #     'next': self.color_map[self.next_tetromino[0]] - 1,
+        #     'hold': self.color_map[self.held_tetromino[0]] - 1 if self.held_tetromino else 7,
+        # }
+        
         return state_info
 
 
